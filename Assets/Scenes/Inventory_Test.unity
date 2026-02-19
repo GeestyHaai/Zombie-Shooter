@@ -152,9 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ee692956a93444180b5584d79dbe13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
-  unlockedWeapons: 000000000000000000
-  weaponPanels:
+  weaponPlanes:
   - {fileID: 1096660909}
   - {fileID: 1058538428}
   - {fileID: 1445131996}
@@ -164,6 +162,10 @@ MonoBehaviour:
   - {fileID: 1444830432}
   - {fileID: 977715707}
   - {fileID: 1860984093}
+  unlockedWeapons: 010000000000000000
+  equippedColor: {r: 1, g: 1, b: 1, a: 1}
+  unlockedColor: {r: 0.58636516, g: 0.6830188, b: 0.6830188, a: 1}
+  lockedColor: {r: 0.15740567, g: 0.12415095, b: 0.17735851, a: 1}
 --- !u!4 &220413126
 Transform:
   m_ObjectHideFlags: 0

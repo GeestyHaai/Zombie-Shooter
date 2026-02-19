@@ -1,73 +1,90 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponInventoryUI : MonoBehaviour
 {
-    public WeaponScript weaponScript;  // Reference to the script that handles weapon logic (e.g., equipping)
-    [Header("Inventory State")]
-    public List<int> ownedWeaponIDs = new List<int>();   // IDs player owns
-    private int equippedWeaponID = -1;                   // Currently equipped
+    [Header("UI Planes (Assign 9 in Inspector)")]
+    public Image[] weaponPlanes;
 
-    [Header("UI Setup")]
-    public List<WeaponPlane> weaponPlanes = new List<WeaponPlane>();
+    [Header("Weapon Unlock States (Size must be 9)")]
+    [SerializeField]
+    private bool[] unlockedWeapons = new bool[9];
 
     [Header("Colors")]
-    public Color equippedColor = Color.yellow;  // Glowing
-    public Color ownedColor = Color.white;      // Neutral
-    public Color lockedColor = Color.gray;      // Darkened
+    public Color equippedColor = Color.yellow;
+    public Color unlockedColor = Color.white;
+    public Color lockedColor = Color.gray;
 
+    private int equippedWeaponID = 1;
+
+    void Awake()
+    {
+        // Ensure array size is always 9
+        if (unlockedWeapons == null || unlockedWeapons.Length != 9)
+        {
+            unlockedWeapons = new bool[9];
+        }
+    }
 
     void Start()
     {
+        // If weapon 1 isn't unlocked in inspector, force it
+        if (!unlockedWeapons[0])
+        {
+            unlockedWeapons[0] = true;
+        }
+
+        equippedWeaponID = 1;
         UpdateUI();
     }
 
     void Update()
     {
-        HandleNumberKeyInput();
+        HandleInput();
     }
 
-    // -------------------------
-    // INPUT
-    // -------------------------
-    void HandleNumberKeyInput()
+    void HandleInput()
     {
-        for (int i = 0; i < weaponPlanes.Count && i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
             {
-                TryEquipWeapon(weaponPlanes[i].weaponID);
+                TryEquipWeapon(i + 1);
             }
-        }
-    }
-
-    // -------------------------
-    // INVENTORY LOGIC
-    // -------------------------
-
-    public void PurchaseWeapon(int weaponID)
-    {
-        if (!ownedWeaponIDs.Contains(weaponID))
-        {
-            ownedWeaponIDs.Add(weaponID);
-
-            // Auto-equip first weapon purchased
-            if (equippedWeaponID == -1)
-                equippedWeaponID = weaponID;
-
-            UpdateUI();
         }
     }
 
     void TryEquipWeapon(int weaponID)
     {
-        if (ownedWeaponIDs.Contains(weaponID))
+        int index = weaponID - 1;
+
+        if (unlockedWeapons[index])
         {
             equippedWeaponID = weaponID;
             UpdateUI();
         }
-        // If not owned → do nothing
+    }
+
+    public void UnlockWeapon(int weaponID)
+    {
+        int index = weaponID - 1;
+
+        if (index >= 0 && index < 9)
+        {
+            unlockedWeapons[index] = true;
+            UpdateUI();
+        }
+    }
+
+    public void SetWeaponUnlocked(int weaponID, bool state)
+    {
+        int index = weaponID - 1;
+
+        if (index >= 0 && index < 9)
+        {
+            unlockedWeapons[index] = state;
+            UpdateUI();
+        }
     }
 
     public int GetCurrentWeaponID()
@@ -75,34 +92,24 @@ public class WeaponInventoryUI : MonoBehaviour
         return equippedWeaponID;
     }
 
-    // -------------------------
-    // UI UPDATE
-    // -------------------------
-
     void UpdateUI()
-
     {
-        foreach (var plane in weaponPlanes)
+        for (int i = 0; i < weaponPlanes.Length; i++)
         {
-            if (!ownedWeaponIDs.Contains(plane.weaponID))
+            int weaponID = i + 1;
+
+            if (!unlockedWeapons[i])
             {
-                plane.image.color = lockedColor;
+                weaponPlanes[i].color = lockedColor;
             }
-            else if (plane.weaponID == equippedWeaponID)
+            else if (weaponID == equippedWeaponID)
             {
-                plane.image.color = equippedColor;
+                weaponPlanes[i].color = equippedColor;
             }
             else
             {
-                plane.image.color = ownedColor;
+                weaponPlanes[i].color = unlockedColor;
             }
         }
     }
-}
-
-[System.Serializable]
-public class WeaponPlane
-{
-    public int weaponID;   // Assign matching ID
-    public Image image;    // Assign UI Image in Inspector
 }
