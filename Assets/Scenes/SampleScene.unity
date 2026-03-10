@@ -161,7 +161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tijmen is een homoooooo!!!
+  m_text: Tijmen is Geert Wilders
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -585,6 +585,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5867905407494874071
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1203241541248094476, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_Name
+      value: Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.121752
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.49848482
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.669098
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015665819406977974, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ba43794aae399a4aa76637f6944bfb7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -593,3 +650,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 2146391399}
   - {fileID: 129661882}
+  - {fileID: 5867905407494874071}
