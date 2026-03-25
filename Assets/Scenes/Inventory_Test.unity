@@ -166,7 +166,7 @@ MonoBehaviour:
   equippedColor: {r: 1, g: 1, b: 1, a: 1}
   unlockedColor: {r: 0.58636516, g: 0.6830188, b: 0.6830188, a: 1}
   lockedColor: {r: 0.15740567, g: 0.12415095, b: 0.17735851, a: 1}
-  weaponScript: {fileID: 0}
+  weaponScript: {fileID: 1880211392}
 --- !u!4 &220413126
 Transform:
   m_ObjectHideFlags: 0
