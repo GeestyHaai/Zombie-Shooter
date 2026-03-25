@@ -6,29 +6,29 @@ public class WeaponInventoryUI : MonoBehaviour
     [Header("UI Planes (Assign 9 in Inspector)")]
     public Image[] weaponPlanes;
 
-    [Header("Weapon Unlock States (Size must be 9)")]
-    [SerializeField]
-    private bool[] unlockedWeapons = new bool[9];
+    [Header("Weapon Unlock States")]
+    [SerializeField] private bool[] unlockedWeapons = new bool[9];
 
     [Header("Colors")]
     public Color equippedColor = Color.yellow;
     public Color unlockedColor = Color.white;
     public Color lockedColor = Color.gray;
 
+    [Header("Weapon System")]
+    [SerializeField] private WeaponScript weaponScript;     // Drag your WeaponScript here
+
     private int equippedWeaponID = 1;
 
-    void Awake()
+    private void Awake()
     {
-        // Ensure array size is always 9
-        if (unlockedWeapons == null || unlockedWeapons.Length != 9)
+        if (unlockedWeapons == null || unlockedWeapons.Length != 9) 
         {
             unlockedWeapons = new bool[9];
         }
     }
 
-    void Start()
+    private void Start()
     {
-        // If weapon 1 isn't unlocked in inspector, force it
         if (!unlockedWeapons[0])
         {
             unlockedWeapons[0] = true;
@@ -36,53 +36,52 @@ public class WeaponInventoryUI : MonoBehaviour
 
         equippedWeaponID = 1;
         UpdateUI();
-    }
 
-    void Update()
-    {
-        HandleInput();
-    }
-
-    void HandleInput()
-    {
-        for (int i = 0; i < 9; i++)
+        // Equip the starting weapon
+        if (weaponScript != null) 
         {
-            if (Input.GetKeyDown((i + 1).ToString()))
+            weaponScript.SetWeapon(1);
+        }
+    }
+
+    private void Update()
+    {
+        for (int slot = 0; slot < 9; slot++)
+        {
+            if (Input.GetKeyDown((slot + 1).ToString()))
             {
-                TryEquipWeapon(i + 1);
+                TryEquipWeapon(slot + 1);
             }
         }
     }
 
-    void TryEquipWeapon(int weaponID)
+    private void TryEquipWeapon(int weaponID)
     {
         int index = weaponID - 1;
 
-        if (unlockedWeapons[index])
+        if (index >= 0 && index < 9 && unlockedWeapons[index])
         {
             equippedWeaponID = weaponID;
             UpdateUI();
+
+            // Directly call SetWeapon
+            if (weaponScript != null)
+            {
+                weaponScript.SetWeapon(weaponID);
+            }
+            else
+            {
+                Debug.LogWarning("WeaponScript reference is missing on WeaponInventoryUI!");
+            }
         }
     }
 
     public void UnlockWeapon(int weaponID)
     {
         int index = weaponID - 1;
-
         if (index >= 0 && index < 9)
         {
             unlockedWeapons[index] = true;
-            UpdateUI();
-        }
-    }
-
-    public void SetWeaponUnlocked(int weaponID, bool state)
-    {
-        int index = weaponID - 1;
-
-        if (index >= 0 && index < 9)
-        {
-            unlockedWeapons[index] = state;
             UpdateUI();
         }
     }
@@ -92,24 +91,18 @@ public class WeaponInventoryUI : MonoBehaviour
         return equippedWeaponID;
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
-        for (int i = 0; i < weaponPlanes.Length; i++)
+        for (int slot = 0; slot < weaponPlanes.Length; slot++)
         {
-            int weaponID = i + 1;
+            int weaponID = slot + 1;
 
-            if (!unlockedWeapons[i])
-            {
-                weaponPlanes[i].color = lockedColor;
-            }
+            if (!unlockedWeapons[slot])
+                weaponPlanes[slot].color = lockedColor;
             else if (weaponID == equippedWeaponID)
-            {
-                weaponPlanes[i].color = equippedColor;
-            }
+                weaponPlanes[slot].color = equippedColor;
             else
-            {
-                weaponPlanes[i].color = unlockedColor;
-            }
+                weaponPlanes[slot].color = unlockedColor;
         }
     }
 }
